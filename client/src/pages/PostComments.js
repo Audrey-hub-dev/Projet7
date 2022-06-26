@@ -3,16 +3,17 @@ import { useParams, useHistory } from "react-router-dom";
 import axios from "axios";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan, faPenToSquare} from '@fortawesome/free-regular-svg-icons';
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import jwt_decode from 'jwt-decode'
 import { deleteCommentAction } from "../actions/postsActions";
 import { useDispatch } from 'react-redux';
-
+import MainScreen from "../components/MainScreen";
+import "./PostComments.css";
 
 
 
 function Post() {
   let { id } = useParams();
-  const [postObject, setPostObject] = useState({});
   const [comments, setComments] = useState([]);
   const [comment, setComment] = useState("")
 
@@ -27,22 +28,13 @@ function Post() {
 
   useEffect(() => {
 
-    axios.get(`http://localhost:3000/api/posts/${id}`, {
-        headers: { 
-            Authorization: "Bearer " + sessionStorage.getItem("userInfo") },
-      
-    }).then((response) => {
-      setPostObject(response.data);
-      console.log(response.data)
-    });
-
     axios.get(`http://localhost:3000/api/posts/${id}/comments`, {
         headers: { 
             Authorization: "Bearer " + sessionStorage.getItem("userInfo") },
       })
       .then((response) => {
         setComments(response.data) 
-        console.log(response.data)
+        //console.log(response.data)
        
         });
     
@@ -66,7 +58,7 @@ function Post() {
       )
       .then((response) => {
         if (response.data.error) {
-          console.log(response.data.error);
+          //console.log(response.data.error);
         } else {
           const commentToAdd = {
             comment: comment, 
@@ -88,17 +80,50 @@ function Post() {
 
     
   return (
-    <div className="postPage">
-      <div className="leftSide">
-        <div className="post" id="individual">
-          <div className="title">{postObject.title}</div>
-          <div className="body">{postObject.content}</div>  
+    <MainScreen title={`Welcome Back ${decoded && decoded.email}`}>
+
+    <div className="PostComments">
+       
+        <div className="listOfComments">
+          {comments?.map((value, key) => (
+            
+              <div key={key} className="comment">
+                  <div className= "user">By {value.usersId} </div>
+                  <div className= "comment"> Comment: {value.comment} </div>
+           
+                
+         <div className="buttons">
+                { (decodedAdmin === true || decodedId === value.usersId) &&   (
+           <><div className="modify">
+                          <FontAwesomeIcon icon={faPenToSquare}
+                             color="#FD2D01"
+                              onClick={() => history.push(`/updatecomment/${value.id}`)}>
+                          </FontAwesomeIcon>
+                      </div><div className="delete">
+
+                              <FontAwesomeIcon icon={faTrashCan}
+                                 color="#FD2D01"
+                                  onClick={() => deleteHandler(value.id)}>
+                              </FontAwesomeIcon>
+
+                          </div></>
+
+
+            )}
+
+              </div>
+              </div>
+            
+          ))}
+
+
+
+
+
         </div>
-      </div>
 
 
 
-      <div className="rightSide">
         <div className="addCommentContainer">
           <input
             type="text"
@@ -110,40 +135,22 @@ function Post() {
             }}
           />
 
-
-
-          <button onClick={addComment}> Add Comment</button>
+          <FontAwesomeIcon icon={faPlus}
+            onClick={addComment}
+          />
         </div>
-        <div className="listOfComments">
-          {comments?.reverse().map((value, key) => (
-            
-              <div key={key} className="comment">
-                  <div className= "user"> User: {value.usersId} </div>
-                  <div className= "comment"> Comment: {value.comment} </div>
-           
-                
-         
-                { (decodedAdmin === true || decodedId === value.usersId) &&   (
-           <><div className="modify">
-                          <FontAwesomeIcon icon={faPenToSquare}
-                              onClick={() => history.push(`/updatecomment/${value.id}`)}>
-                          </FontAwesomeIcon>
-                      </div><div className="delete">
-
-                              <FontAwesomeIcon icon={faTrashCan}
-                                  onClick={() => deleteHandler(value.id)}>
-                              </FontAwesomeIcon>
-
-                          </div></>
 
 
-            )}
-              </div>
-            
-          ))}
-        </div>
+
+
+
+
+
+
+
+
       </div>
-    </div>
+  </MainScreen>
   );
 }
 

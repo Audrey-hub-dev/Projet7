@@ -54,7 +54,8 @@ exports.getComments = async (req, res, next) => {
       'postsId',
       'comment', 
     ],
-      include : [{ model: db.Posts}]
+      include : [{ model: db.Posts}],
+      order: [["createdAt", "DESC"]],
 
   })
   .then((comments) => res.status(200).json(comments))
