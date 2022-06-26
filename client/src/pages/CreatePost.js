@@ -29,32 +29,31 @@ function Upload() {
 
 
   return (
+  
     <div className="Upload">
-      <h1>Create A Post</h1>
-      <div className="UploadForm">
-        <input
-          type="text"
-          placeholder="Title..."
-          onChange={(event) => {
-            setTitle(event.target.value);
-          }}
-        />
-        <input
-          type="text"
-          placeholder="Description..."
-          onChange={(event) => {
-            setContent(event.target.value);
-          }}
-        />
+          <h1>Create A Post</h1>
+          <div className="UploadForm">
+              <input
+                  type="text"
+                  placeholder="Title..."
+                  onChange={(event) => {
+                      setTitle(event.target.value);
+                  } } />
+              <input
+                  type="text"
+                  placeholder="Description..."
+                  onChange={(event) => {
+                      setContent(event.target.value);
+                  } } />
 
-        <input 
-            type="file" 
-            name="file"
-            onChange={(event) => setImage(event.target.files)} />
+              <input
+                  type="file"
+                  name="file"
+                  onChange={(event) => setImage(event.target.files)} />
 
-        <button onClick={upload}>Upload</button>
+              <button onClick={upload}>Upload</button>
+          </div>
       </div>
-    </div>
   );
 }
 
