@@ -1,81 +1,38 @@
 
-import './App.css';
-import {BrowserRouter as Router, Route } from 'react-router-dom'
-
-
-/*
-
-import Navbar from './components/Navbar'
-import Home from './pages/Home/Home';
-import SignUp from './pages/SignUp/SignUp';
-import Login from './pages/Login/Login'
-import Post from './pages/Post/Post';
-import Profile from './pages/Profile/Profile';
-
-
-
-function App() {
-  return (
-  
-    <>
-
-    <Navbar />
-    <Router>
-    
-     
-      <Route path="/" exact render={() => <Home /> } />
-      <Route path="/signup" exact render={() => <SignUp /> } />
-      <Route path="/login" exact render={() => <Login /> } />
-      <Route path="/post" exact render={() => <Post /> } />
-      <Route path="/profile" exact render={() => <Profile /> } />
-
-     
-    </Router>
-    </>
-
-   
-  )
-}
-
-export default App;
-
-*/
-
-import Home from './pages/Home/Home';
-import SignUp from './pages/SignUp/SignUp';
-import Login from './pages/Login/Login'
-import Profile from './pages/Profile/Profile'
-import Post from './pages/Post/Post'
-import Navbar from './components/Navbar'
-
-
-
-
+import "./App.css";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import Footer from "./components/Footer";
+import Home from "./pages/Home";
+import UpdatePost from "./pages/UpdatePost";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import CreatePost from "./pages/CreatePost";
+import PostComments from "./pages/PostComments";
+import PageNotFound from "./pages/PageNotFound";
+import UpdateComment from "./pages/UpdateComment"; 
 
 
 function App() {
-  return (
-  
-    <>
 
-    <Navbar />
+
+
+
+  return (
     <Router>
     
+      <main className="App">
+        <Route exact path="/" component={Home}/>
+        <Route path="/Register" component={Register} />
+        <Route path="/login" component={Login} />
+        <Route path="/note/:id" component={UpdatePost} />
+        <Route path="/createnote" component={CreatePost} />
+        <Route path="/postcomments/:id" component={PostComments}/>
+        <Route path="/updatecomment/:id" component={UpdateComment} />
+        <Route path="*" exact component={PageNotFound} />
      
-      <Route path="/" exact render={(props) => <Home /> } />
-      <Route path="/signup" exact render={(props) => <SignUp /> } />
-      <Route path="/login" exact render={(props) => <Login /> } />
-      <Route path="/profile" exact render={(props) => <Profile /> } />
-      <Route path="/post" exact render={(props) => <Post /> } />
-    
-   
-   
-
-     
+      </main>
+      <Footer />
     </Router>
-    </>
-
-   
   )
 }
 

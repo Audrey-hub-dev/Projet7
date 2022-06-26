@@ -1,29 +1,44 @@
 
   module.exports = (sequelize, DataTypes) => {
-    const Comments = sequelize.define("Comments", {
-        UserId: {
+    const Comments = sequelize.define("Comments", { 
+        id: {
             type: DataTypes.INTEGER,
+            autoIncrement: true,
+            allowNull: false,
+            primaryKey: true,
+          },
+          
+        usersId: {
+            type: DataTypes.INTEGER,
+            
             references: {
                 model:"Users",
                 key: 'id'
             },
+            
             allowNull: false,
         },
-        PostId: {
+        
+        postsId: {
             type: DataTypes.INTEGER,
+            
             references: {
               model:"Posts",
               key: "id",
             },
+            
             allowNull: false,
         },
-        commentBody: {
+         
+        comment: {
             type: DataTypes.STRING,
             allowNull: false,
         },  
     });
 
+    
     Comments.associate = (models) => {
+        /*
         models.Users.belongsToMany(models.Posts, {
             through: models.Comments,
             foreignKey: 'UserId',
@@ -34,16 +49,20 @@
             foreignKey: 'PostId',
             otherKey: 'UserId'
         })
+        */
+       
         //we want to connect foreignKey and reference table with alias (as)
-        models.Comments.belongsTo(models.Users, {
-            foreignKey: 'UserId',
-            as: 'User',
+        Comments.belongsTo(models.Users, {
+            foreignKey: 'usersId',
         })
-        models.Comments.belongsTo(models.Posts, {
-            foreignKey: 'PostId',
-            ad: 'Post'
+        
+        Comments.belongsTo(models.Posts, {
+            foreignKey: 'postsId',
+            onDelete: "CASCADE",
         })
+    
     };
+    
   
     return Comments;
   };

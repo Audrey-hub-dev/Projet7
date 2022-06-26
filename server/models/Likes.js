@@ -1,52 +1,64 @@
+
 module.exports = (sequelize, DataTypes) => {
     const Likes = sequelize.define("Likes", {
-        PostId: {
+        
+        id: {
             type: DataTypes.INTEGER,
-
-            references: {
-              model:"Posts",
-              key: "id",
-            
-            },
+            autoIncrement: true,
+            allowNull: false,
+            primaryKey: true,
+        },
+        
+        postsLId: {
+            type: DataTypes.INTEGER,
             allowNull: false,
          
         },
-        UserId: {
+        usersLId: {
             type: DataTypes.INTEGER,
-            references: {
-                model:"Users",
-                key: 'id'
-            },
             allowNull: false,
-        }
+        },
+
     });
 
+    
+   
+    
     Likes.associate = (models) => {
         // we want to connect tables Users and Posts (many to many)
         //going through table Likes (first two tables)
         //relationship between 'Users' and 'Posts' created through
         //an associative table
-        models.Users.belongsToMany(models.Posts, {
+        /*
+        models.Users.belongsToMany(models.Posts,
+             {
             through: models.Likes,
-            foreignKey: 'UserId',
-            otherKey: 'PostId'
+            foreignKey: 'postsLId',
+            otherKey: 'usersLId'
         })
         models.Posts.belongsToMany(models.Users, {
             through: models.Likes,
-            foreignKey: 'PostId',
-            otherKey: 'UserId'
+            foreignKey: 'postsLId',
+            otherKey: 'usersLId'
         })
+        */
+       /*
         //we want to connect foreignKey and reference table with alias (as)
         models.Likes.belongsTo(models.Users, {
-            foreignKey: 'UserId',
-            as: 'User',
+            foreignKey: 'usersLId',
+            as: 'beau',
         })
-        models.Likes.belongsTo(models.Posts, {
-            foreignKey: 'PostId',
-            ad: 'Post'
+        */
+        
+        Likes.belongsTo(models.Posts, {
+            foreignKey: 'postsLId',
+            onDelete: "CASCADE",
         })
 
+
     }
+    
+
   
     return Likes;
   };

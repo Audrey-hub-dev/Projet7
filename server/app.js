@@ -7,16 +7,35 @@
  const express = require('express');
 
  const app = express();
+
+ const fs = require("fs");
+
+  //importation de path pour utiliser le dossier images
+  const path = require('path');
+ 
+  
  
  const cors = require("cors");
+/*
+ const corsOptions = {
+  origin: ["http://localhost:3001"],
+  credentials: true,
+  'Access-Control-Allow-Credentials': 'true',
+  'allowedCredentials': 'true',
+  'allowedHeaders': ['sessionId', 'Content-Type'],
+  'exposedHeaders': ['sessionId'],
+  'methods': ['GET,HEAD,PUT,PATCH,POST,DELETE'],
+  'preflightContinue': true
+}
+*/
 
  app.use(cors({
-        origin: ["http://localhost:3001"],
-        methods: ["GET", "POST", "PUT", "DELETE"],
-        credentials: true,
-    })
-); 
-    
+  credentials: true,
+  origin: "http://localhost:3001",
+})
+);
+ 
+//app.use(express.urlencoded({ extended: true }));
 
  const db = require("./models");
 
@@ -28,8 +47,8 @@
  });
 
 
- /*
  
+ /*
  //utilisation de cookie-session pour sécuriser les cookies de session 
  const cookieSession = require('cookie-session');
  
@@ -42,13 +61,18 @@
    httpOnly: true
  
  }));
- 
  */
+
  
- //importation de path pour utiliser le dossier images
-const path = require('path');
- 
- 
+ app.use((req, res, next) => {
+  //res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
+  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+
+  next();
+});
+
  //utilisation du module 'dotenv' pour masquer les informations de connexion à la base de données à l'aide de variables d'environnement
  //require('dotenv').config()
  //console.log(process.env)
@@ -56,26 +80,31 @@ const path = require('path');
  //pour analyser le corps de la requête 
  app.use(express.json());
  
+
  //permet de se servir du dossier images lors d'une requête 
- //app.use('/images', express.static(path.join(__dirname, 'images'))); 
+ app.use('/images', express.static(path.join(__dirname, 'images'))); 
  
  //enregistrer les routes du fichier user.js, routes liées à l'authentification attendues par le frontend
- //app.use('/api/auth', usersRoutes); 
 
 
-const postsRoutes = require("./routes/posts");
-const commentsRoutes = require("./routes/comments");
-const userRoutes = require("./routes/user");
-const likesRoutes = require("./routes/likes");
-const profileRoutes = require("./routes/profile");
-
-app.use('/user', userRoutes);
-app.use('/posts', postsRoutes); 
-app.use('/profile', profileRoutes);
-app.use('/comments', commentsRoutes); 
-app.use('/likes', likesRoutes)
+const { errorHandler, notFound } = require("./middlewares/error");
 
 
+const postRoutes = require("./routes/postRoutes");
+const userRoutes = require("./routes/userRoutes");
+const likesRoutes = require("./routes/Likes")
+const commentRoutes = require("./routes/Comments")
 
- 
+
+app.use("/api/posts", postRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/likes", likesRoutes);
+app.use("/api/comments", commentRoutes)
+
+
+// Error Handling middlewares
+app.use(notFound);
+app.use(errorHandler);
+
+
  module.exports = app; 
