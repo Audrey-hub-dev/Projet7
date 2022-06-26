@@ -14,7 +14,7 @@ import { faComments, faThumbsUp, faTrashCan, faFile } from '@fortawesome/free-re
 import jwt_decode from 'jwt-decode'
 import { deletePostAction } from "../actions/postsActions";
 
-
+import "./Home.css"
 
 
 
@@ -53,12 +53,12 @@ const deleteHandler = (id) => {
             Authorization: "Bearer " + sessionStorage.getItem("userInfo") }
           })
             .then((response) => {
-              console.log(response.data.listOfPosts)
+              //console.log(response.data.listOfPosts)
               setListOfPosts(response.data.listOfPosts)
-              console.log(response.data.likedPosts)
+              //console.log(response.data.likedPosts)
               //setLikedPosts(response.data.likedPosts)
-              console.log(response.data.likedPosts.map((like) => {
-                return like.postsLId}))
+              //console.log(response.data.likedPosts.map((like) => {
+               // return like.postsLId}))
               setLikedPosts(response.data.likedPosts.map((like) => {
                 return like.postsLId}))
               
@@ -80,7 +80,7 @@ const deleteHandler = (id) => {
                 Authorization: "Bearer " + sessionStorage.getItem("userInfo") }
               })
                 .then((response) => {
-                  console.log(response.data)
+                  //console.log(response.data)
                 
                     setListOfPosts(
                     listOfPosts.map((post) => {
@@ -124,68 +124,91 @@ const deleteHandler = (id) => {
             });
         };
                   
-                 
-        
-
-
     return (
 
       <MainScreen title={`Welcome Back ${decoded && decoded.email}`}>
 
       <Link to="/createnote">
-        <Button style={{ marginLeft: 10, marginBottom: 6 }} size="lg">
+        <Button>
           Create new Post
         </Button>
       </Link>
-    <div className="collection">
+    <article>
+    <div className="Home">
         {listOfPosts.map((value, key) => (
-            <div key={key} className="post">
-      
+            <div key={key} className="Post">
+
 
       { (decodedAdmin === true || decodedId === value.userId) &&   (
-                <div>
+                <div className="Buttons">
+              <p className="Edit">
                 <FontAwesomeIcon icon={faFile} 
+                  color="#FD2D01"
                 onClick={() => history.push(`/note/${value.id}`)}>
                 </FontAwesomeIcon>
-             
+                Edit
+              </p>
+              <p className="Delete">
               <FontAwesomeIcon icon={faTrashCan} 
+                color="#FD2D01"
                 onClick={() => deleteHandler(value.id)}>
+                 
               </FontAwesomeIcon>
+              Delete
+              </p>
+
             </div>
       )}
-                  <><div className="title"> Title: {value.title} </div><div className="image">
+                  <div className="Title"> {value.title}
+                  </div>
+                  <div className="Image">
+                 
                   <img src={value.image} alt="" />
-                </div><div className="user"> User: {value.userId} </div><div className="body"
+                </div>
+                <div className="User"> By {value.userId} 
+                </div>
+                <div className="Content"
                   onClick={() => {
                     history.push(`/postcomments/${value.id}`);
                   } }
-                >Content: {value.content}</div>
+                > {value.content}
+                </div>
+                <div className="Engagement">
 
-                  <div className="iconComments">
+                <div className="Like">
+                <p>Likes</p>
+                <FontAwesomeIcon icon={faThumbsUp}
+                    color="#4E5166"
+                       onClick={() => {
+                           likeAPost(value.id);    
+                       }}
+                />
+               
+                <label>{value.Likes.length}</label>
+              
+                </div>
+                      
+                  <div className="Comment">
+                  <p>Comments</p>
                   <FontAwesomeIcon icon={faComments}
+                   color="#4E5166"
                     onClick={() => history.push(`/postcomments/${value.id}`)}
-                  ></FontAwesomeIcon>
-                  </div></>
-
-                  <div className="iconLikes">
+                  />
                 
-
-                  <FontAwesomeIcon icon={faThumbsUp}
-                         onClick={() => {
-                             likeAPost(value.id);    
-                         }}
-                         
-                    />
-
-                  <label>{value.Likes.length}</label>
-
+                
+                
+                   
                   </div>
-    
+                  
 
- 
-  </div>
+    
+</div>
+</div>
+
         ))}
+        
         </div>
+        </article>
 </MainScreen>
 
          
