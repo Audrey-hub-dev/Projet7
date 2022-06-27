@@ -41,7 +41,6 @@ exports.getAllPosts = async (req, res,next) => {
   res.json({ listOfPosts: listOfPosts, likedPosts: likedPosts });     
 };
    
-
 //retrieve post with id and all comments for post
 exports.getComments = async (req, res, next) => {
   await Comments.findAll({
@@ -53,6 +52,8 @@ exports.getComments = async (req, res, next) => {
       'usersId', 
       'postsId',
       'comment', 
+      'createdAt',
+      'updatedAt'
     ],
       include : [{ model: db.Posts}],
       order: [["createdAt", "DESC"]],
