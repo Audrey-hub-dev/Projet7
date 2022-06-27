@@ -1,7 +1,6 @@
 
 const db = require('./config/database'); 
 
-
   db.query("SELECT * FROM Users", function (err, result, fields) {
       if (err) throw err;
       console.log(result);   
