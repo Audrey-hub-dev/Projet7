@@ -1,8 +1,7 @@
 
 
 module.exports = (sequelize, Sequelize) => {
-    const Users = sequelize.define("Users", {
-      
+    const Users = sequelize.define("Users", { 
       id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
@@ -38,40 +37,21 @@ module.exports = (sequelize, Sequelize) => {
       admin: {
         type: Sequelize.BOOLEAN,
         allowNull: true,
-        //default: false,
       },
       
       
     });
   
-    
     Users.associate = (models) => {
-     
-       // Users.hasMany(models.Likes, {
-            //onDelete: "cascade",
-        //});
         //users has many posts
         Users.hasMany(models.Posts, {
           foreignKey: "userId",
           as: "posts",
           onDelete: "cascade",
         });
-        //Users has many comments
-        //Users.hasMany(models.Comments);
     };
     
 
     return Users;
   };
 
-  /*
-exports.findByPk = (id) => {
-  return Users.findByPk(id)
-  .then((result) => {
-    result = result.toJSON();
-    delete result._id;
-    delete result.__v;
-    return result
-  })
-}
-*/

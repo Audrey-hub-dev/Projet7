@@ -38,19 +38,6 @@
 
     
     Comments.associate = (models) => {
-        /*
-        models.Users.belongsToMany(models.Posts, {
-            through: models.Comments,
-            foreignKey: 'UserId',
-            otherKey: 'PostId'
-        })
-        models.Posts.belongsToMany(models.Users, {
-            through: models.Comments,
-            foreignKey: 'PostId',
-            otherKey: 'UserId'
-        })
-        */
-       
         //we want to connect foreignKey and reference table with alias (as)
         Comments.belongsTo(models.Users, {
             foreignKey: 'usersId',
