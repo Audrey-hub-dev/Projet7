@@ -28,11 +28,11 @@ function Header() {
   
     return (  
         <div className="Container">
-            <HomeLogo src={logo} />
+            <HomeLogo src={logo} alt="LogoGroupomania"/>
               {userInfo ? (
                   <>
                   <Link to="/">Home</Link>
-                  <FontAwesomeIcon icon={faArrowRightFromBracket} 
+                  <FontAwesomeIcon icon={faArrowRightFromBracket} alt="LogoutButton"
                     color="#FD2D01"
                     onClick={logoutHandler} 
                     />
