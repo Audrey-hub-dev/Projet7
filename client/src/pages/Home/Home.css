@@ -1,0 +1,110 @@
+ article .home {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+article .home .post {
+    width: 550px;
+    height: 650px;
+    border: 2px solid #FFD7D7;
+    display: flex;
+    flex-direction: column;
+    margin: 50px;
+}
+
+article .home .post .buttons {
+    display: flex;
+    justify-content: center;    
+}
+article .home .post .buttons .edit {
+    display: flex;  
+    color: #FD2D01;
+    Font-size: 20px; 
+}
+
+article .home .post .buttons .delete {
+    display: flex;
+    margin-left: 20px;  
+    color: #FD2D01;
+    font-size: 20px; 
+} 
+
+article .home .post .image img {
+   height: 300px;
+   max-width: 500px;
+   margin: 0 auto;
+   display: flex;
+   justify-content: center;
+}
+
+article .home .post .content{
+    display: flex;
+    justify-content: center;
+    font-size: 20px;
+}
+
+article .home .post .title {
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 25px; 
+}
+
+article .home .post .user {
+    text-align: center;
+    margin-top: 10px; 
+    font-size: 20px; 
+    
+
+}
+article .home .post .engagement {
+    margin-top: 15px; 
+    display: flex;
+    justify-content: center; 
+    font-size: 18px; 
+}
+
+article .home .post .engagement label {
+    margin-left: 10px; 
+    margin-right: 100px;
+}
+article .home .post .created-at, .updated-at {
+    margin-top: 10px;
+    text-align: center; 
+}
+@media screen and (max-width: 580px) {
+    article .home .post {
+    width: 350px;
+    height: 600px; 
+    }
+    article .home .post .image img {
+    height: 250px;
+    max-width: 400px;
+    }
+    article .home .post .content{
+    font-size: 18px;
+    }
+    article .home .post .title {
+    font-size: 20px;
+    }
+}
+
+Button {
+    background-color: #FFD7D7;
+    font-size: 20px; 
+}
+@media screen and (max-width: 370px) {
+    article .home .post {
+    width: 300px;
+    height: 540px; 
+    }
+    article .home .post .image img {
+    height: 200px;
+    max-width: 300px;
+    }
+    
+}
+

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
-import Login from "./Login";
+import Login from "../Login/Login";
+import "./Register.css";
+
 
 const SignUpForm = () => {
   const [formSubmit, setFormSubmit] = useState(false);
@@ -49,12 +51,12 @@ const SignUpForm = () => {
         <>
           <Login />
           <span></span>
-          <h4 className="success">
-            Enregistrement réussi, veuillez-vous connecter
-          </h4>
+          <p className="success">
+            Vous pouvez vous connecter dès maintenant !
+          </p>
         </>
       ) : (
-        <form action="" onSubmit={handleRegister} id="sign-up-form">
+        <form className="form-register" action="" onSubmit={handleRegister}>
 
           <label htmlFor="email">Adresse mail</label>
           <br />
@@ -95,8 +97,6 @@ const SignUpForm = () => {
         </form>
          
       )}
-
-
     </>
   );
 };

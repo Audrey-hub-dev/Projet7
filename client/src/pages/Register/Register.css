@@ -1,0 +1,20 @@
+Form .form-register {
+    text-align: center; 
+    margin-top: 150px;   
+}
+Form Label .htmlFor {
+    font-size: 25px; 
+}
+
+Form Input {
+    border-color:  #FD2D01;
+    height: 50px; 
+    width: 400px; 
+    font-size: 25px; 
+}
+Form .submit-btn {
+    background-color: #FFD7D7;
+    width: 200px; 
+    margin-top: 20px; 
+}
+

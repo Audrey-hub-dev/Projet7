@@ -2,12 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import axios from "axios";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrashCan, faPenToSquare} from '@fortawesome/free-regular-svg-icons';
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faTrashCan, faPenToSquare, } from '@fortawesome/free-regular-svg-icons';
 import jwt_decode from 'jwt-decode'
-import { deleteCommentAction } from "../actions/postsActions";
+import { deleteCommentAction } from "../../actions/postsActions";
 import { useDispatch } from 'react-redux';
-import MainScreen from "../components/MainScreen";
+import Main from "../../components/Main";
 import "./PostComments.css";
 
 
@@ -16,14 +15,11 @@ function Post() {
   let { id } = useParams();
   const [comments, setComments] = useState([]);
   const [comment, setComment] = useState("")
-
   var token = sessionStorage.getItem('userInfo')
   var decoded = jwt_decode(token);
   var decodedId = decoded.id;
   var decodedAdmin = decoded.admin 
-
- const dispatch = useDispatch()
-
+  const dispatch = useDispatch()
   let history = useHistory();
 
   useEffect(() => {
@@ -34,13 +30,14 @@ function Post() {
       })
       .then((response) => {
         setComments(response.data) 
-        //console.log(response.data)
-       
-        });
+      });
     
   }, []);
 
-  const addComment = () => {
+  
+
+  const addComment = (e) => {
+    if( e.key==="Enter" ) {
     axios
       .post(
         "http://localhost:3000/api/comments",
@@ -67,7 +64,10 @@ function Post() {
           setComment("");
           window.location.reload(`/postcomment/${id}`)
         }
+     
       });
+      
+    }
   };
 
   const deleteHandler = (id) => {
@@ -80,53 +80,46 @@ function Post() {
 
     
   return (
-    <MainScreen title={`Welcome Back ${decoded && decoded.email}`}>
-
-    <div className="PostComments">
-       
-        <div className="listOfComments">
+    <Main title={`Welcome Back ${decoded && decoded.email}`}>
+      <div className="post-comments">
+        <div className="list-of-comments">
           {comments?.map((value, key) => (
-            
-              <div key={key} className="comment">
-                  <div className= "user">By {value.usersId} </div>
-                  <div className= "comment"> Comment: {value.comment} </div>
-           
-                
-         <div className="buttons">
+            <div key={key} className="comment">
+              <div className= "user">By {value.usersId} </div>
+              <div className= "comment"> Comment: {value.comment} </div>
+              <div className="buttons">
                 { (decodedAdmin === true || decodedId === value.usersId) &&   (
-           <><div className="modify">
-                          <FontAwesomeIcon icon={faPenToSquare}
-                             color="#FD2D01"
-                              onClick={() => history.push(`/updatecomment/${value.id}`)}>
-                          </FontAwesomeIcon>
-                      </div><div className="delete">
-
-                              <FontAwesomeIcon icon={faTrashCan}
-                                 color="#FD2D01"
-                                  onClick={() => deleteHandler(value.id)}>
-                              </FontAwesomeIcon>
-
-                          </div></>
-
-
-            )}
-
+                  <><div className="modify">
+                        <FontAwesomeIcon icon={faPenToSquare} alt="edit-comment"
+                          color="#FD2D01"
+                          onClick={() => history.push(`/updatecomment/${value.id}`)}>
+                        </FontAwesomeIcon>
+                      </div>
+                      
+                      <div className="delete">
+                        <FontAwesomeIcon icon={faTrashCan} alt="delete-comment"
+                          color="#FD2D01"
+                           onClick={() => deleteHandler(value.id)}>
+                        </FontAwesomeIcon>
+                      </div></>
+                )}
               </div>
+              <div className="comment-created-at">
+                  Created on{" "}
+                    {value.createdAt.substring(0,10)}
               </div>
-            
+              <div className="comment-updated-at">
+                  Updated on{" "}
+                      {value.updatedAt.substring(0,10)}
+              </div>
+
+            </div>
           ))}
-
-
-
-
-
         </div>
-
-
-
-        <div className="addCommentContainer">
+        <div className="add-comment-container">
           <input
             type="text"
+            onKeyDown={addComment}
             placeholder="Comment..."
             autoComplete="off"
             value={comment}
@@ -134,23 +127,9 @@ function Post() {
               setComment(event.target.value);
             }}
           />
-
-          <FontAwesomeIcon icon={faPlus}
-            onClick={addComment}
-          />
         </div>
-
-
-
-
-
-
-
-
-
-
       </div>
-  </MainScreen>
+    </Main>
   );
 }
 
