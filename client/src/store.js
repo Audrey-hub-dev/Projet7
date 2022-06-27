@@ -4,24 +4,18 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import {
   commentDeleteReducer,
   postDeleteReducer,
-  postUpdateReducer,
-  commentsListReducer,
-  updateCommentReducer,
+  postUpdateReducer
 } from "./Reducers/postReducers";
 import {
   userLoginReducer,
-  userRegisterReducer,
 } from "./Reducers/userReducers";
 
 const reducer = combineReducers({
 
   userLogin: userLoginReducer,
-  userRegister: userRegisterReducer,
   commentDelete: commentDeleteReducer,
   postDelete: postDeleteReducer,
   postUpdate: postUpdateReducer,
-  commentsList: commentsListReducer,
-  updateComment: updateCommentReducer
 });
 
 const userInfoFromStorage = sessionStorage.getItem("userInfo")
