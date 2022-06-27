@@ -4,6 +4,8 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { deleteCommentAction } from "../../actions/postsActions";
 import ReactMarkdown from "react-markdown";
+import "./UpdateComment.css";
+
 
 function UpdateComment({ match, history}) {
   const [comment, setComment] = useState("");

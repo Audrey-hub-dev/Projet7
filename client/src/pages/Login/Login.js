@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
+import "./Login.css";
+
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -34,7 +36,7 @@ const Login = () => {
   };
 
   return (
-    <form action="" onSubmit={handleLogin} id="sign-up-form">
+    <form className="form-login" action="" onSubmit={handleLogin}>
       <label htmlFor="email">Email</label>
       <br />
       <input
