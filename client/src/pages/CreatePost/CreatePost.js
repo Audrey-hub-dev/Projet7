@@ -11,56 +11,70 @@ function Upload() {
   const [image, setImage] = useState([]);
   let history = useHistory();
 
-    const upload = () => {
+    const uploadPost = (e) => {
+        e.preventDefault()
+    
         const formData = new FormData();
         formData.append("file", image[0]);
         formData.append("title",title);
         formData.append("content", content);
 
         Axios.post("http://localhost:3000/api/posts", formData, {
-            headers: { Authorization : "Bearer " + sessionStorage.getItem("userInfo")}
+            
+            headers: { 
+                "Content-Type": "application/json",
+                Authorization : "Bearer " + sessionStorage.getItem("userInfo")}
             }
-            ).then((response) => {
-                history.push("/");
-            });
+            )
+            .then((response) => {
+                setTitle(response.formData)
+                history.push('/') 
+            })       
     };
+    
 
   return (
     <Main title="Create a Post">
         <div className="upload">
-          <form className="form-create-post">
-              <label>Title</label>
-              <br/>
-              <input
-                  type="text"
-                  placeholder="Title..."
-                  onChange={(event) => {
-                      setTitle(event.target.value);
-                  } } />
-                  <br/>
-                  <label>Description</label>
-                  <br/>
-
-              <textarea
-                  type="text"
-                  placeholder="Description..."
-                  onChange={(event) => {
+            <form className="form-create-post" onSubmit={uploadPost}>
+                <label htmlFor="title-post">Title</label>
+                <br/>
+                <input
+                    id="title-post"
+                    type="text"
+                    placeholder="Title..."
+                    onChange={(event) => {
+                        setTitle(event.target.value);
+                    }} 
+                    />
+                <br/>
+                <label htmlFor="description-post">Description</label>
+                <br/>
+                <textarea
+                    id="description-post"
+                    type="text"
+                    placeholder="Description..."
+                    onChange={(event) => {
                       setContent(event.target.value);
-                  } } />
-
-                  <br/>
-                  <label>Image</label>
-                  <br/>
-
-              <input
-                  type="file"
-                  name="file"
-                  onChange={(event) => setImage(event.target.files)} />
-                  <br/>
-
-              <button onClick={upload}>Upload</button>
-          </form>
-      </div>
+                    } } 
+                    />
+                <br/>
+                <label htmlFor="image-post">Image</label>
+                <br/>
+                <input
+                    id="image-post"
+                    type="file"
+                    name="file"
+                    onChange={(event) => {
+                        setImage(event.target.files)
+                    }}
+                />
+                <br/>
+                <button type="submit">
+                    Upload Post
+                </button>
+            </form>
+        </div>
     </Main>
   );
 }

@@ -58,18 +58,20 @@ function SingleNote({ match, history }) {
   return (
     <Main title="Edit your Post">
       <form className= "form-update-post" onSubmit={updateHandler}>
-        <label>Title</label>
+        <label htmlFor="update-title">Title</label>
         <br />
           <input
+            id="update-title"
             type="title"
             placeholder="Enter the title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
           <br />
-          <label>Content</label>
+          <label htmlFor="update-content">Content</label>
           <br />
           <textarea
+            id="update-content"
             as="textarea"
             placeholder="Enter the content"
             value={content}
@@ -78,9 +80,10 @@ function SingleNote({ match, history }) {
           {content && (
             <><p>Note Preview</p><ReactMarkdown>{content}</ReactMarkdown></>
           )}
-          <label>Image</label>
+          <label htmlFor="update-image">Image</label>
           <br />
           <input
+            id="update-content"
             type="file"
             name="file"
             onChange={(e) => setImage(e.target.files)}

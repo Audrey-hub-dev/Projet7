@@ -9,7 +9,7 @@
 
 article .home .post {
     width: 550px;
-    height: 650px;
+    height: auto; 
     border: 2px solid #FFD7D7;
     display: flex;
     flex-direction: column;
@@ -22,23 +22,24 @@ article .home .post .buttons {
 }
 article .home .post .buttons .edit {
     display: flex;  
-    color: #FD2D01;
+    color: #4E5166;
     Font-size: 20px; 
 }
 
 article .home .post .buttons .delete {
     display: flex;
     margin-left: 20px;  
-    color: #FD2D01;
+    color: #4E5166;
     font-size: 20px; 
 } 
 
 article .home .post .image img {
-   height: 300px;
-   max-width: 500px;
-   margin: 0 auto;
-   display: flex;
-   justify-content: center;
+    height: auto;
+    max-width:100%;
+    object-fit: cover;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
 }
 
 article .home .post .content{
@@ -49,14 +50,14 @@ article .home .post .content{
 
 article .home .post .title {
     text-align: center;
-    font-size: 30px;
+    font-size: 25px;
     margin-bottom: 25px; 
 }
 
 article .home .post .user {
     text-align: center;
     margin-top: 10px; 
-    font-size: 20px; 
+    font-size: 17px; 
     
 
 }
@@ -64,12 +65,13 @@ article .home .post .engagement {
     margin-top: 15px; 
     display: flex;
     justify-content: center; 
-    font-size: 18px; 
+    font-size: 20px; 
 }
 
 article .home .post .engagement label {
     margin-left: 10px; 
     margin-right: 100px;
+    font-size: 20px;
 }
 article .home .post .created-at, .updated-at {
     margin-top: 10px;
@@ -78,11 +80,7 @@ article .home .post .created-at, .updated-at {
 @media screen and (max-width: 580px) {
     article .home .post {
     width: 350px;
-    height: 600px; 
-    }
-    article .home .post .image img {
-    height: 250px;
-    max-width: 400px;
+    height: auto; 
     }
     article .home .post .content{
     font-size: 18px;
@@ -99,12 +97,7 @@ Button {
 @media screen and (max-width: 370px) {
     article .home .post {
     width: 300px;
-    height: 540px; 
+    height: auto; 
     }
-    article .home .post .image img {
-    height: 200px;
-    max-width: 300px;
-    }
-    
 }
 

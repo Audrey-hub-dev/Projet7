@@ -95,7 +95,7 @@ function Home() {
                   <p className="edit">
                     <FontAwesomeIcon icon={faFile} alt="edit-button"
                     color="#FD2D01"
-                    onClick={() => history.push(`/note/${value.id}`)}>
+                    onClick={() => history.push(`/post/${value.id}`)}>
                     </FontAwesomeIcon>
                     Edit
                   </p>
@@ -109,18 +109,18 @@ function Home() {
                   </p>
                 </div>
               )}
-                <div className="title"> {value.title}</div>
+                <h2 className="title"> {value.title}</h2>
                 <div className="image">
-                  <img src={value.image} alt="post-pic" />
+                  <img src={value.image} alt="post-pic-uploaded" />
                 </div>
-                <div className="user"> By {value.userId}</div>
-                <div className="content"
+                <h3 className="user"> By {value.userId}</h3>
+                <h4 className="content"
                   onClick={() => {
                   history.push(`/postcomments/${value.id}`);
                   }}
                   > 
                   {value.content}
-                </div>
+                </h4>
                 <div className="engagement">
                   <div className="like">
                     <p>Likes</p>

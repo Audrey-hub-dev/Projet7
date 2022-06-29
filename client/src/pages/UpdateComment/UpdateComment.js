@@ -60,9 +60,10 @@ function UpdateComment({ match, history}) {
   return (
     <Main title="Edit your Comment">
        <form className= "form-update-comment">
-        <label>Comment</label>
+        <label htmlFor="update-comment">Comment</label>
         <br />
           <input
+            id="update-comment"
             as="textarea"
             placeholder="Enter the comment"
             value={comment}

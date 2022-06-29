@@ -32,12 +32,11 @@ function Post() {
         setComments(response.data) 
       });
     
-  }, []);
+  }, [id]);
 
   
 
-  const addComment = (e) => {
-    if( e.key==="Enter" ) {
+  const addComment = () => {
     axios
       .post(
         "http://localhost:3000/api/comments",
@@ -67,7 +66,7 @@ function Post() {
      
       });
       
-    }
+    
   };
 
   const deleteHandler = (id) => {
@@ -117,9 +116,12 @@ function Post() {
           ))}
         </div>
         <div className="add-comment-container">
+          <form>
+          <label htmlFor="text" className="write-comment">Comment</label>
+          <br />
           <input
+            id="text"
             type="text"
-            onKeyDown={addComment}
             placeholder="Comment..."
             autoComplete="off"
             value={comment}
@@ -127,6 +129,8 @@ function Post() {
               setComment(event.target.value);
             }}
           />
+          </form>
+           <button onClick={addComment} className="button-add-comment"> Add Comment</button>
         </div>
       </div>
     </Main>
