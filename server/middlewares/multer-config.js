@@ -37,6 +37,7 @@ const MIME_TYPES = {
     'image/jpg': 'jpg',
     'image/jpeg': 'jpg',
     'image/png': 'png'
+
 };
 
 //création d'un objet de configuration pour multer qui sert à indiquer 
