@@ -7,10 +7,11 @@ Le Front-end est dans le dossier client (utilisation de React)
 Dans le dossier Front-end:
 
 via le terminal, exécuter les commandes suivantes:
-cd client
-npm install
-yarn start 
-Appuyer sur la touche "y" pour confirmer le port 3001 en front-end
+- cd client
+- npm install
+- yarn start
+
+Appuyer sur la touche "y" (yes) pour confirmer le port 3001 en front-end
 
 Vous devriez voir apparaitre dans le terminal:
 Compiled successfully!
@@ -37,8 +38,8 @@ Le Back-end est dans le dossier server (utilisation d'une base de données relat
 Dans le fichier backend:
 
 via le terminal, exécuter les commandes suivantes:
-cd server
-npm install 
+- cd server
+- npm install 
 
 Pour accéder à la base de données, appelez une nouvelle base de données "SocialMediaG" et utilisez le mot de passe "password".
 Vous trouverez dans le fichier Config.js ces données:
@@ -52,7 +53,7 @@ Vous trouverez dans le fichier Config.js ces données:
    }
    
 Revenez dans le terminal et exécuter la commande:
-nodemon server.js
+- nodemon server.js
 
 Vous devriez voir apparaitre dans le terminal 
 [nodemon] 2.0.16
