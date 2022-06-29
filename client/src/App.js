@@ -27,7 +27,7 @@ function App() {
         <Route exact path="/" component={Home}/>
         <Route path="/Register" component={Register} />
         <Route path="/login" component={Login} />
-        <Route path="/note/:id" component={UpdatePost} />
+        <Route path="/post/:id" component={UpdatePost} />
         <Route path="/createpost" component={CreatePost} />
         <Route path="/postcomments/:id" component={PostComments}/>
         <Route path="/updatecomment/:id" component={UpdateComment} />
