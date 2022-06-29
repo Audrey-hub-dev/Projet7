@@ -1,70 +1,72 @@
-# Getting Started with Create React App
+# Projet7-Groupomania
+Cloner le projet github sur ordinateur
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Le projet contient 2 dossiers dans la branche master: client / server. 
 
-## Available Scripts
+Le Front-end est dans le dossier client (utilisation de React)
+Dans le dossier Front-end:
 
-In the project directory, you can run:
+via le terminal, exécuter les commandes suivantes:
+cd client
+npm install
+yarn start 
+Appuyer sur la touche "y" pour confirmer le port 3001 en front-end
 
-### `npm start`
+Vous devriez voir apparaitre dans le terminal:
+Compiled successfully!
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+You can now view client in the browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+  Local:            http://localhost:3001
+  On Your Network:  http://192.168.1.19:3001
 
-### `npm test`
+Note that the development build is not optimized.
+To create a production build, use yarn build.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+webpack compiled successfully
 
-### `npm run build`
+Puis dans l'url du navigateur taper l'adresse: http://localhost:3001/register
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+////////////////////////////////////////////////////////////////////////
 
-### `npm run eject`
+Le Back-end est dans le dossier server (utilisation d'une base de données relationnelles MySql dans l'outil Workbench à l'aide d'un ORM Sequelize, utilisation de node.js)
+ 
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Dans le fichier backend:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+via le terminal, exécuter les commandes suivantes:
+cd server
+npm install 
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Pour accéder à la base de données, appelez une nouvelle base de données "SocialMediaG" et utilisez le mot de passe "password".
+Vous trouverez dans le fichier Config.js ces données:
+ "database":{
+        "host": "127.0.0.1",
+        "user": "root",
+        "password": "password",
+        "database": "SocialMediaG",
+        "dialect": "mysql"
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+   }
+   
+Revenez dans le terminal et exécuter la commande:
+nodemon server.js
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Vous devriez voir apparaitre dans le terminal 
+[nodemon] 2.0.16
+[nodemon] to restart at any time, enter `rs`
+[nodemon] watching path(s): *.*
+[nodemon] watching extensions: js,mjs,json
+[nodemon] starting `node server.js`
+Listening on port 3000
+Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'Users' AND TABLE_SCHEMA = 'SocialMediaG'
+Executing (default): SHOW INDEX FROM `Users` FROM `SocialMediaG`
+Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'Posts' AND TABLE_SCHEMA = 'SocialMediaG'
+Executing (default): SHOW INDEX FROM `Posts` FROM `SocialMediaG`
+Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'Comments' AND TABLE_SCHEMA = 'SocialMediaG'
+Executing (default): SHOW INDEX FROM `Comments` FROM `SocialMediaG`
+Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'Likes' AND TABLE_SCHEMA = 'SocialMediaG'
+Executing (default): SHOW INDEX FROM `Likes` FROM `SocialMediaG`
+Database connected !
