@@ -52,19 +52,6 @@ const updateHandler = (e) => {
 };
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
   return (
     <Main title="Edit your Post">
       <form className= "form-update-post" onSubmit={updateHandler}>
