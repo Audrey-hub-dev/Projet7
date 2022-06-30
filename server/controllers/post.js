@@ -13,13 +13,11 @@ const jwt = require('jsonwebtoken')
 
 exports.getAllPosts = async (req, res,next) => {
   const listOfPosts = await Posts.findAll({ 
-    //attributes: [ "id", "title", "content","image", "createdAt","updatedAt", "userId"]
     include: [ { model: Likes, as : "Likes"} ],
     order: [["createdAt", "DESC"]]
   })
   
   const likedPosts = await Likes.findAll({ 
-  
     include: [{ model: db.Posts}],
     order: [["createdAt", "DESC"]],
   })
