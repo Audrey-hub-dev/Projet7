@@ -7,7 +7,7 @@ import ReactMarkdown from "react-markdown";
 import "./UpdatePost.css";
 
 
-function SingleNote({ match, history }) {
+function UpdatePost ({ match, history }) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [image, setImage] = useState([]);
@@ -108,5 +108,5 @@ function SingleNote({ match, history }) {
   );
 }
 
-export default SingleNote;
+export default UpdatePost
 
