@@ -4,11 +4,9 @@ import axios from 'axios';
 import { useHistory, Link } from 'react-router-dom';
 import { Button } from "react-bootstrap";
 import Main from "../../components/Main";
-import { useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faComments, faThumbsUp, faTrashCan, faFile } from '@fortawesome/free-regular-svg-icons';
 import jwt_decode from 'jwt-decode';
-import { deletePostAction } from "../../actions/postsActions";
 import "./Home.css"
 
 
@@ -20,16 +18,24 @@ function Home() {
   var decodedId = decoded.id
   var decodedAdmin = decoded.admin 
   let history = useHistory()
-  const dispatch = useDispatch();
+
   const [likedPosts, setLikedPosts] = useState(0)
 
   const deleteHandler = (id) => {
     if (window.confirm("Are you sure?")) {
-      dispatch(deletePostAction(id));
-      window.location.reload("/");
+    axios
+      .delete(`http://localhost:3000/api/posts/${id}`,
+      {
+        headers: { 
+          Authorization: "Bearer " + sessionStorage.getItem("userInfo") },
+      })
+      .then(() => {
+        window.location.reload("/");
+
+      });
     }
   };
-  
+
   useEffect(() => {
     axios.get("http://localhost:3000/api/posts",
     { headers: {
@@ -66,7 +72,7 @@ function Home() {
                   })
               )
               //if array contains like value in post
-              // update array postId if postId doesn't equal to current id of post
+              // update array postId only if postId doesn't equal to current id of post
               if (likedPosts.includes(postId)) {
                 setLikedPosts(
                   likedPosts.filter((id) => {
@@ -78,7 +84,8 @@ function Home() {
               }
             });
       };
-              
+          
+      
     return (
       <Main title={`Welcome Back ${decoded && decoded.email}`}>
       <Link to="/createpost">

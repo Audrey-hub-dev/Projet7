@@ -1,6 +1,4 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../actions/userActions";
+import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import logo from '../assets/logo.png';
 import styled from 'styled-components';
@@ -8,28 +6,32 @@ import './Header.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 
+
 const HomeLogo = styled.img`
 height: 35px;
 `
 
 
 function Header() {
-    const dispatch = useDispatch();
-    let history = useHistory();
-    const userLogin = useSelector((state) => state.userLogin);
-    const { userInfo } = userLogin;
+
+const userInfoFromStorage = sessionStorage.getItem("userInfo")
+  ? JSON.stringify(sessionStorage.getItem("userInfo"))
+  : null;
+
+
+  let history = useHistory()
   
-    const logoutHandler = () => {
-      dispatch(logout());
-      history.push('/login')
-    };
+  const logoutHandler = () => {
+    sessionStorage.removeItem("userInfo")
+    history.push('/login')
+  };
   
-    useEffect(() => {}, [userInfo]);
   
     return (  
         <div className="Container">
             <HomeLogo src={logo} alt="logo-Groupomania"/>
-              {userInfo ? (
+            
+            { userInfoFromStorage ? (
                   <>
                   <Link to="/">Home</Link>
                   <FontAwesomeIcon icon={faArrowRightFromBracket} alt="logout-button"
@@ -37,10 +39,11 @@ function Header() {
                     onClick={logoutHandler} 
                     />
                     </>
-                
-              ) : (
+            ) : (
+            
                 <Link to="/login">Login</Link>
-              )}
+            
+            )}
             </div>  
     );
   }

@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Main from "../../components/Main";
 import axios from "axios";
-import { useDispatch } from "react-redux";
-import { deletePostAction, updatePostAction } from "../../actions/postsActions";
 import ReactMarkdown from "react-markdown";
 import "./UpdatePost.css";
 
@@ -12,48 +10,60 @@ function UpdatePost ({ match, history }) {
   const [content, setContent] = useState("");
   const [image, setImage] = useState([]);
   const [date, setDate] = useState("");
-  const dispatch = useDispatch();
-
-  const deleteHandler = (id) => {
-    if (window.confirm("Are you sure?")) {
-      dispatch(deletePostAction(id));
-    }
-    history.push("/");
-    window.location.replace("/");
-  };
 
 
-  useEffect(() => {
-   
-    const fetching = async () => {
-      const { data } = await axios.get(`http://localhost:3000/api/posts/${match.params.id}`, {
-        headers: {Authorization :  "Bearer " + sessionStorage.getItem("userInfo") } });
-          setTitle(data.title);
-          setContent(data.content);
-          setImage(data.image);
-          setDate(data.updatedAt);
-    };
-    fetching();
-  }, [match.params.id, date]);
+useEffect(() => {
+
+const fetching = async () => {
+  const { data } = await axios.get(`http://localhost:3000/api/posts/${match.params.id}`, {
+    headers: {Authorization :  "Bearer " + sessionStorage.getItem("userInfo") } });
+      setTitle(data.title);
+      setContent(data.content);
+      setImage(data.image);
+      setDate(data.updatedAt);
+};
+fetching();
+}, [match.params.id, date]);
 
 
-  const resetHandler = () => {
-    setTitle("");
-    setContent("");
-  };
 
-  const updateHandler = (e) => {
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append("file", image[0]);
 
-    dispatch(updatePostAction(match.params.id, title, content, image));
-    if (!title || !content || !image) return;
+const updateHandler = (e) => {
+  e.preventDefault()
 
-    resetHandler();
-    history.push("/");
-    window.location.reload("/");
-  };
+  const formData = new FormData();
+  formData.append("file", image[0]);
+  formData.append("title",title);
+  formData.append("content", content);
+
+
+  axios
+    .put(
+      `http://localhost:3000/api/posts/${match.params.id}`, formData,
+      {
+        headers: {
+          Authorization: "Bearer " + sessionStorage.getItem("userInfo"),
+        },
+      }
+    )
+    .then((response) => {
+        history.push('/')
+      })
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   return (
     <Main title="Edit your Post">
@@ -94,11 +104,7 @@ function UpdatePost ({ match, history }) {
             Update Post
           </button>
             <br />
-          <button
-           onClick={() => deleteHandler(match.params.id)}
-          >
-            Delete Note
-          </button>
+         
           </div>
       </form>
       <footer>

@@ -4,8 +4,6 @@ import axios from "axios";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan, faPenToSquare, } from '@fortawesome/free-regular-svg-icons';
 import jwt_decode from 'jwt-decode'
-import { deleteCommentAction } from "../../actions/postsActions";
-import { useDispatch } from 'react-redux';
 import Main from "../../components/Main";
 import "./PostComments.css";
 
@@ -19,7 +17,6 @@ function Post() {
   var decoded = jwt_decode(token);
   var decodedId = decoded.id;
   var decodedAdmin = decoded.admin 
-  const dispatch = useDispatch()
   let history = useHistory();
 
   useEffect(() => {
@@ -53,31 +50,34 @@ function Post() {
         }
       )
       .then((response) => {
-        if (response.data.error) {
-          //console.log(response.data.error);
-        } else {
           const commentToAdd = {
             comment: comment, 
           };
           setComments([...comments, commentToAdd]);
           setComment("");
           window.location.reload(`/postcomment/${id}`)
-        }
-     
-      });
-      
+      })    
     
   };
+
 
   const deleteHandler = (id) => {
     if (window.confirm("Are you sure?")) {
-      dispatch(deleteCommentAction(id));
-      window.location.reload(`/postcomment/${id}`);
-   
+    axios
+      .delete(`http://localhost:3000/api/comments/${id}`,
+      {
+        headers: { 
+          Authorization: "Bearer " + sessionStorage.getItem("userInfo") },
+      })
+      .then(() => {
+        window.location.reload(`/postcomment/${id}`);
+
+      });
     }
   };
 
-    
+
+
   return (
     <Main title={`Welcome Back ${decoded && decoded.email}`}>
       <div className="post-comments">

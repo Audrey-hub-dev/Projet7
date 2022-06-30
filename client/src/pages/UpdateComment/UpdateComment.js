@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Main from "../../components/Main";
 import axios from "axios";
-import { useDispatch } from "react-redux";
-import { deleteCommentAction } from "../../actions/postsActions";
 import ReactMarkdown from "react-markdown";
 import "./UpdateComment.css";
 
@@ -10,15 +8,7 @@ import "./UpdateComment.css";
 function UpdateComment({ match, history}) {
   const [comment, setComment] = useState("");
   const [date, setDate] = useState("");
-  const dispatch = useDispatch();
 
-  const deleteHandler = (id) => {
-    if (window.confirm("Are you sure?")) {
-      dispatch(deleteCommentAction(id));
-    }
-    history.push("/")
-
-  };
 
   useEffect(() => {
     const fetching = async () => {
@@ -73,12 +63,7 @@ function UpdateComment({ match, history}) {
           alt="update-button"> 
             Update Comment
         </button>
-        <button
-          onClick={() => deleteHandler(match.params.id)} 
-          alt="delete-button"
-        >
-            Delete Comment
-        </button>
+       
       </form>
     </Main>
   );

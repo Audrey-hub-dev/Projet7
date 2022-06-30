@@ -22,12 +22,10 @@ function Upload() {
         Axios.post("http://localhost:3000/api/posts", formData, {
             
             headers: { 
-                "Content-Type": "application/json",
                 Authorization : "Bearer " + sessionStorage.getItem("userInfo")}
             }
             )
-            .then((response) => {
-                setTitle(response.formData)
+            .then(() => {
                 history.push('/') 
             })       
     };
