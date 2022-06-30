@@ -66,7 +66,7 @@ function Home() {
                   })
               )
               //if array contains like value in post
-              // update array with id of like
+              // update array postId if postId doesn't equal to current id of post
               if (likedPosts.includes(postId)) {
                 setLikedPosts(
                   likedPosts.filter((id) => {
