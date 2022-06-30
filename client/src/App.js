@@ -21,14 +21,21 @@ function App() {
 
       <GlobalStyle />
       <Header />
-
       <Switch>
   
-        <Route exact path="/" component={Home}/>
-        <Route path="/Register" component={Register} />
-        <Route path="/login" component={Login} />
+        <Route exact path="/">
+          <Home />
+        </Route>
+        <Route path="/Register">
+          <Register />
+        </Route>
+        <Route path="/login">
+          <Login />
+        </Route>
         <Route path="/post/:id" component={UpdatePost} />
-        <Route path="/createpost" component={CreatePost} />
+        <Route path="/createpost">
+          <CreatePost />
+        </Route>
         <Route path="/postcomments/:id" component={PostComments}/>
         <Route path="/updatecomment/:id" component={UpdateComment} />
         <Route component={PageNotFound} />
