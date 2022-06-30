@@ -112,16 +112,16 @@ exports.createPost = (req, res, next) => {
 }
        
 
-// put (update) post
+//put (update) post
 exports.updatePost = async (req, res,next) => {
     let newImage = "none"
     let post = await Posts.findOne({ where: { id: req.params.id } });
-  // if img is send 
+  //if img is send 
   if(req.file && req.file.filename) {
     newImage = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
-    // if there is img 
+    //if there is new img 
     if(newImage != 'none' && post.image != 'none') {
-        // Delete img
+        //delete previous img
         const filename = post.image.split('/images/')[1];
         fs.unlink(`images/${filename}`, () => {
         });
