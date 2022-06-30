@@ -32,7 +32,8 @@ function UpdateComment({ match, history}) {
   }, [match.params.id, date]);
 
 
-  const updateComment = () => {
+  const updateComment = (e) => {
+    e.preventDefault()
 
     axios
       .put(
@@ -47,12 +48,7 @@ function UpdateComment({ match, history}) {
         }
       )
       .then((response) => {
-        if (response.data.error) {
-          console.log(response.data.error);
-        } else {
-         
-          };
-          setComment("");
+          setComment(response.data)
           history.push('/')
         })
   };
