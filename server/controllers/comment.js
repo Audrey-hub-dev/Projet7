@@ -1,44 +1,11 @@
 
 const db = require('../models');
 const Comments = db.Comments; 
-const Users = db.Users;
 const Posts = db.Posts;
-const jwt = require("jsonwebtoken"); 
 
 
-/*
-//retrieve post with id and all posts for comments 
-exports.getAllComments = async (req, res, next) => {
-    await Comments.findAll({
-        where: {
-            postsId: req.params.id,
-        },
-        include: [
-            {
-                model: Users,
-                as: "User"
-            },
-            {
-                model: Posts,
-            }
-        ]
-    })
-    .then((comments) => res.status(200).json(comments))
-
-    .catch((error) => {
-        console.log(error)
-        return res.status(500).json({ error });
-})
-};
-
-*/
-
-
-  
 exports.addComment = async (req,res,next) => {
-    //const token = req.headers.authorization.split(' ')[1];
-    //const decodedToken = jwt.verify(token, "RANDOM_TOKEN_SECRET");
-    //const userId = decodedToken.id;
+
 
     await Posts.findByPk(req.params.id)
             .then(() => {
