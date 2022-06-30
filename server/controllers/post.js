@@ -8,20 +8,6 @@ const fs = require ('fs');
 
 const jwt = require('jsonwebtoken')
 
-/*
-//get one post by email
-exports.getOnePostEmail = (req, res,next) => {
-    const email = req.params.email;
-    db.Posts.findOne({
-        where: {
-        userEmail : email
-    }
-    })
-    .then((postEmail) => res.status(200).json(postEmail))
-    .catch((error) => res.status(500).json({ error }));
-    
-}
-*/
 
 //get all posts
 
@@ -132,13 +118,12 @@ exports.createPost = (req, res, next) => {
 exports.updatePost = async (req, res,next) => {
     let newImage = "none"
     let post = await Posts.findOne({ where: { id: req.params.id } });
-  // Await: findOne doit s'éxécuter avant post.image
-  // Si une image est envoyé par l'utilisateur.
+  // if img is send 
   if(req.file && req.file.filename) {
     newImage = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
-    // Si il y a une image dans l'article
+    // if there is img 
     if(newImage != 'none' && post.image != 'none') {
-        // Suppresion de l'image.
+        // Delete img
         const filename = post.image.split('/images/')[1];
         fs.unlink(`images/${filename}`, () => {
         });
@@ -197,23 +182,7 @@ exports.getOnePost = async (req, res,next) => {
       )
   };
   
-  /*
-//get all posts by userId 
-exports.getPostsUser = async (req, res, next) => {
-    const id = req.params.id
-    await Posts.findAll({
-        where: {userId: id},
-        include: [Likes]
-    })
 
-    .then((post) => res.status(200).json(post))
-  
-    .catch((error) => {
-        console.log(error)
-        return res.status(500).json({ error });
-    })
-};
-*/
 
 //delete a post by id
 exports.deletePost = async (req, res,next) => {
@@ -224,23 +193,23 @@ exports.deletePost = async (req, res,next) => {
       })
         .then((post) => {  
           if (post.image !== null) {
-            // Si image présente on la supprime du répertoire, puis on supprime le post de la BDD
+  
             const filename = post.image.split("/images/")[1];
             fs.unlink(`images/${filename}`, () => {
               
                 Posts.destroy(
                 { where: { id: post.id } },
-                //{ truncate: true, restartIdentity: true }
+              
                 );
-              res.status(200).json({ message: "Post supprimé !" });
+              res.status(200).json({ message: "Post deleted !" });
             });
-            } else { // Sinon on supprime uniquement le post
+            } else {
             
                 Posts.destroy(
               { where: { id: post.id } },
-              //{ truncate: true, restartIdentity: true }
+              
             );
-            res.status(200).json({ message: "Post supprimé !" });
+            res.status(200).json({ message: "Post deleted !" });
           }
         })
     
