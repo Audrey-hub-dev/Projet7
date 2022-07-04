@@ -145,7 +145,7 @@ else newImage = post.image;
           where: { id: req.params.id },
         }
       )
-        .then(() => res.status(200).json({ message: "Post mis à jour !" }))
+        .then(() => res.status(200).json({ message: "Post updated !" }))
         .catch((error) => {
             console.log(error)
             res.status(400).json({ error });
