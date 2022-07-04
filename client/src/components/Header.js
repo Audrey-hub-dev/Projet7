@@ -41,7 +41,7 @@ const userInfoFromStorage = sessionStorage.getItem("userInfo")
                     </>
             ) : (
             
-                <Link to="/login">Login</Link>
+                <><Link to="/login">Login</Link><Link to="/register">Register</Link></>
             
             )}
             </div>  
