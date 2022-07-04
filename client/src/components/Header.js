@@ -15,9 +15,6 @@ height: 35px;
 function Header() {
 
 const userInfoFromStorage = sessionStorage.getItem("userInfo")
-  ? JSON.stringify(sessionStorage.getItem("userInfo"))
-  : null;
-
 
   let history = useHistory()
   
@@ -41,7 +38,10 @@ const userInfoFromStorage = sessionStorage.getItem("userInfo")
                     </>
             ) : (
             
-                <><Link to="/login">Login</Link><Link to="/register">Register</Link></>
+              
+                <><Link to="/login">Login</Link><Link to="/Register">Register</Link></>
+               
+                
             
             )}
             </div>  
